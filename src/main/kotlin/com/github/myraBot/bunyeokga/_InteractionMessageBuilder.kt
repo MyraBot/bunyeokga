@@ -2,10 +2,13 @@ package com.github.myraBot.bunyeokga
 
 import com.github.myraBot.diskord.rest.builders.InteractionMessageBuilder
 
+
+val externalMap = mutableMapOf<InteractionMessageBuilder, suspend ArgumentBuilder.() -> Unit>()
+
 private var InteractionMessageBuilder.arguments: suspend ArgumentBuilder.() -> Unit
-    get() = this.arguments
+    get() = externalMap[this] ?: {}
     set(value) {
-        this.arguments = value
+        externalMap[this] = value
     }
 
 fun InteractionMessageBuilder.arguments(arguments: suspend ArgumentBuilder.() -> Unit) {
