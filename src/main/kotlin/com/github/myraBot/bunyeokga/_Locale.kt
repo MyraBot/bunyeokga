@@ -3,15 +3,9 @@ package com.github.myraBot.bunyeokga
 import com.github.myraBot.diskord.common.entities.Locale
 import java.util.*
 
-suspend fun Locale.get(key: String, args: suspend ArgumentBuilder.() -> Unit = {}): String {
+fun Locale.get(key: String): String {
     val locale = Bunyeokga.registeredLanguages[this] ?: getDefaultLanguage()
-
-    var string: String = locale[key] as String? ?: getDefaultLanguage()[key] as String? ?: throw IllegalStateException("Cannot find $key")
-    val arguments = ArgumentBuilder().apply { args.invoke(this) }
-
-    arguments.args.forEach { (k, v) -> string = string.replace("{$k}", "$v") }
-
-    return string
+    return locale[key] as String? ?: getDefaultLanguage()[key] as String? ?: throw IllegalStateException("Cannot find $key")
 }
 
 private fun getDefaultLanguage(): Properties = Bunyeokga.registeredLanguages[Bunyeokga.defaultLang]
