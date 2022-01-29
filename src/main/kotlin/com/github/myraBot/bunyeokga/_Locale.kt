@@ -8,5 +8,17 @@ fun Locale.get(key: String): String {
     return locale[key] as String? ?: getDefaultLanguage()[key] as String? ?: throw IllegalStateException("Cannot find $key")
 }
 
+
+suspend fun Locale.get(key: String, args: (suspend ArgumentBuilder.() -> Unit)? = null): String {
+    val locale = Bunyeokga.registeredLanguages[this] ?: getDefaultLanguage()
+    var string = locale[key] as String? ?: getDefaultLanguage()[key] as String? ?: throw IllegalStateException("Cannot find $key")
+    args?.let {
+        val arguments = ArgumentBuilder().apply { it.invoke(this) }
+        arguments.args.forEach { string = string.replace("{$it.key}", it.value.toString()) }
+    }
+    return string
+}
+
+
 private fun getDefaultLanguage(): Properties = Bunyeokga.registeredLanguages[Bunyeokga.defaultLang]
     ?: throw IllegalStateException("The default language file is missing")
