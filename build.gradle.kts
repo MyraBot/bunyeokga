@@ -9,7 +9,7 @@ plugins {
 
 group = "com.github.myraBot"
 val id = "Bunyeokga"
-version = "1.1"
+version = "1.2"
 
 repositories {
     mavenCentral()
