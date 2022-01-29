@@ -8,8 +8,8 @@ abstract class LanguageTransformer : MessageTransformer {
     override suspend fun onText(builder: MessageBuilder, text: String): String {
         var string = text
         val arguments = ArgumentBuilder().apply { builder.arguments.invoke(this) }
-        arguments.args.forEach { (k, v) -> string = string.replace("{$k}", "$v") }
-        return text
+        arguments.args.forEach { string = string.replace("{$it.key}", "${it.value}") }
+        return string
     }
 
 }
