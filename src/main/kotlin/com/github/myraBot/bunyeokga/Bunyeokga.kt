@@ -1,9 +1,6 @@
 package com.github.myraBot.bunyeokga
 
-import com.github.myraBot.diskord.common.Diskord
 import com.github.myraBot.diskord.common.entities.Locale
-import com.github.myraBot.diskord.rest.builders.InteractionMessageBuilder
-import com.github.myraBot.diskord.rest.builders.MessageBuilder
 import java.util.*
 
 object Bunyeokga {
